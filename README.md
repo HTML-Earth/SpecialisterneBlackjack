@@ -37,3 +37,7 @@ Simple C++ implementation of Blackjack
 %%    C3 <--> C4 : label
 %%    C3 ..* C5
 ```
+
+# Building
+- Install vcpkg and catch2
+- Add env variable: `VCPKG_INCLUDE_PATH` (something like `C:/Users/~name~/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/include`)

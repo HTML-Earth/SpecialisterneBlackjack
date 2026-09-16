@@ -17,7 +17,7 @@ Simple C++ implementation of Blackjack
     BlackjackGame : stay()
     BlackjackGame -- CardManager
     CardManager : Card[] createDeck()
-    CardManager : moveCard(Card,Spot)
+    CardManager : drawCard(Spot,Spot)
     BlackjackGame o-- Spot
     Spot : Card[] cards
     Spot : Card[] getCards()
@@ -25,13 +25,13 @@ Simple C++ implementation of Blackjack
     Spot : shuffleCards()
     Spot : Card removeTopCard()
     Spot o-- Card
-    Card : Suit { Hearts, Diamonds, Spades, Clubs }
-    Card : int getValue()
+    Card : Suit { hearts, diamonds, spades, clubs }
+    Card : int getValue(Card[])
     Card : string getCardName()
     Card <|-- NumberCard
     NumberCard : int number
     Card <|-- FaceCard
-    FaceCard : string name
+    FaceCard : Character { jack, queen, king }
     Card <|-- AceCard
 %%    C1 *--o C2
 %%    C3 <--> C4 : label

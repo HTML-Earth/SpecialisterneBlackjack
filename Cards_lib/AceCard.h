@@ -4,6 +4,8 @@
 
 #ifndef SPECIALISTERNEBLACKJACK_ACECARD_H
 #define SPECIALISTERNEBLACKJACK_ACECARD_H
+#include <vector>
+
 #include "Card.h"
 
 
@@ -11,7 +13,7 @@ class AceCard : public Card {
 public:
     AceCard(Suit suit);
 
-    int getValue() override;
+    int getValue(std::vector<Card*> otherCards) override;
     std::string getCardName() override;
 };
 

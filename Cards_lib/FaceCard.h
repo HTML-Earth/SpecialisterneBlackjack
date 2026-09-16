@@ -4,6 +4,8 @@
 
 #ifndef SPECIALISTERNEBLACKJACK_FACECARD_H
 #define SPECIALISTERNEBLACKJACK_FACECARD_H
+#include <vector>
+
 #include "Card.h"
 
 
@@ -32,7 +34,7 @@ private:
 public:
     FaceCard(Suit suit, Character character);
 
-    int getValue() override;
+    int getValue(std::vector<Card*> otherCards) override;
     std::string getCardName() override;
 };
 

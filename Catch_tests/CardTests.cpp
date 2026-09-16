@@ -92,13 +92,43 @@ TEST_CASE( "The value of cards 2 to 10 are the same as their number", "[cards]" 
         for (int i = 2; i <= 10; i++) {
             auto card = new NumberCard(suit, i);
             INFO(card->getCardName());
-            REQUIRE(card->getValue() == i);
+            REQUIRE(card->getValue(vector<Card*>{}) == i);
         }
     }
 }
 
 TEST_CASE( "The value of an ace depends on the potential sum of the deck", "[cards]" ) {
-    FAIL();
+    for (int s = 0; s < 4; s++) {
+        auto suit = Card::Suit(s);
+
+        auto ace = new AceCard(suit);
+
+        SECTION("sum is 0; expect value 11") {
+            vector<Card*> cards;
+            CHECK(ace->getValue(cards) == 11);
+        }
+
+        for (int i = 1; i < 6; i++) {
+            SECTION("sum is " + to_string(i*2) + "; expect value 11") {
+                vector<Card*> cards;
+                for (int c = 0; c < i; c++) {
+                    cards.emplace_back(new NumberCard(suit,2));
+                }
+                CHECK(ace->getValue(cards) == 11);
+            }
+        }
+
+        for (int i = 6; i < 30; i++) {
+            SECTION("sum is " + to_string(i*2) + "; expect value 1") {
+                vector<Card*> cards;
+                for (int c = 0; c < i; c++) {
+                    cards.emplace_back(new NumberCard(suit,2));
+                }
+                CHECK(ace->getValue(cards) == 1);
+            }
+        }
+    }
+
 }
 
 TEST_CASE( "The value of a jack, queen or king is 10", "[cards]" ) {
@@ -107,15 +137,15 @@ TEST_CASE( "The value of a jack, queen or king is 10", "[cards]" ) {
 
         auto jack = new FaceCard(suit, FaceCard::jack);
         INFO(jack->getCardName());
-        REQUIRE(jack->getValue() == 10);
+        REQUIRE(jack->getValue(vector<Card*>{}) == 10);
 
         auto queen = new FaceCard(suit, FaceCard::queen);
         INFO(queen->getCardName());
-        REQUIRE(queen->getValue() == 10);
+        REQUIRE(queen->getValue(vector<Card*>{}) == 10);
 
         auto king = new FaceCard(suit, FaceCard::king);
         INFO(king->getCardName());
-        REQUIRE(king->getValue() == 10);
+        REQUIRE(king->getValue(vector<Card*>{}) == 10);
     }
 }
 

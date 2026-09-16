@@ -6,11 +6,17 @@
 using namespace std;
 
 NumberCard::NumberCard(Suit suit, int number) {
+    if (number < 2) {
+        throw "NumberCard can not be less than 2";
+    }
+    if (number > 10) {
+        throw "NumberCard can not be greater than 10";
+    }
     m_suit = suit;
     m_number = number;
 }
 
-int NumberCard::getValue() {
+int NumberCard::getValue(vector<Card*>) {
     return m_number;
 }
 

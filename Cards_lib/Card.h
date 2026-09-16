@@ -33,7 +33,7 @@ public:
 protected:
     Suit m_suit;
 public:
-    virtual int getValue() = 0;
+    virtual int getValue(std::vector<Card*> otherCards) = 0;
     virtual std::string getCardName() = 0;
 };
 

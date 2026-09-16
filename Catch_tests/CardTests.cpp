@@ -85,3 +85,50 @@ TEST_CASE( "All cards exist in deck", "[cards]" ) {
         REQUIRE(existsInDeck);
     }
 }
+
+TEST_CASE( "The value of cards 2 to 10 are the same as their number", "[cards]" ) {
+    for (int s = 0; s < 4; s++) {
+        auto suit = Card::Suit(s);
+        for (int i = 2; i <= 10; i++) {
+            auto card = new NumberCard(suit, i);
+            INFO(card->getCardName());
+            REQUIRE(card->getValue() == i);
+        }
+    }
+}
+
+TEST_CASE( "The value of an ace depends on the potential sum of the deck", "[cards]" ) {
+    FAIL();
+}
+
+TEST_CASE( "The value of a jack, queen or king is 10", "[cards]" ) {
+    for (int s = 0; s < 4; s++) {
+        auto suit = Card::Suit(s);
+
+        auto jack = new FaceCard(suit, FaceCard::jack);
+        INFO(jack->getCardName());
+        REQUIRE(jack->getValue() == 10);
+
+        auto queen = new FaceCard(suit, FaceCard::queen);
+        INFO(queen->getCardName());
+        REQUIRE(queen->getValue() == 10);
+
+        auto king = new FaceCard(suit, FaceCard::king);
+        INFO(king->getCardName());
+        REQUIRE(king->getValue() == 10);
+    }
+}
+
+TEST_CASE( "Number cards cannot be less than 2 or greater than 10", "[cards]" ) {
+    for (int s = 0; s < 4; s++) {
+        auto suit = Card::Suit(s);
+        for (int i = -100; i <= 1; i++) {
+            INFO(to_string(i) + " of " + Card::getSuitName(suit));
+            REQUIRE_THROWS(new NumberCard(suit, i));
+        }
+        for (int i = 11; i <= 100; i++) {
+            INFO(to_string(i) + " of " + Card::getSuitName(suit));
+            REQUIRE_THROWS(new NumberCard(suit, i));
+        }
+    }
+}

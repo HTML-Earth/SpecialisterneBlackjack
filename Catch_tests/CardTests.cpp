@@ -86,6 +86,11 @@ TEST_CASE( "All cards exist in deck", "[cards]" ) {
     }
 }
 
+TEST_CASE( "Card amount is correct", "[cards]" ) {
+    auto fullDeck = CardManager::createDeck();
+    REQUIRE(fullDeck.size() == 52);
+}
+
 TEST_CASE( "The value of cards 2 to 10 are the same as their number", "[cards]" ) {
     for (int s = 0; s < 4; s++) {
         auto suit = Card::Suit(s);

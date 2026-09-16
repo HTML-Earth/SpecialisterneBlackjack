@@ -3,15 +3,16 @@ project(SpecialisterneBlackjack)
 
 set(CMAKE_CXX_STANDARD 20)
 
+set(SOURCE_FILES
+        main.cpp
+)
+add_executable(Blackjack_run ${SOURCE_FILES})
+
 include_directories(VCPKG_INCLUDE_PATH)
 
-add_executable(SpecialisterneBlackjack main.cpp
-        Cards/Card.h
-        Cards/AceCard.cpp
-        Cards/AceCard.h
-        Cards/FaceCard.cpp
-        Cards/FaceCard.h
-        Cards/NumberCard.cpp
-        Cards/NumberCard.h)
+include_directories(Cards_lib)
+add_subdirectory(Cards_lib)
+
+target_link_libraries(Blackjack_run Cards_lib)
 
 add_subdirectory(Catch_tests)

@@ -1,11 +1,10 @@
 ﻿find_package(Catch2 3 REQUIRED)
 
 add_executable(Catch_tests_run
-        TestTest.cpp
-#        OtherTest.cpp
+        CardTests.cpp
 )
 
-#target_link_libraries(Catch_tests_run PRIVATE DateConverter_lib)
+target_link_libraries(Catch_tests_run PRIVATE Cards_lib)
 target_link_libraries(Catch_tests_run PRIVATE Catch2::Catch2WithMain)
 
 include(Catch)

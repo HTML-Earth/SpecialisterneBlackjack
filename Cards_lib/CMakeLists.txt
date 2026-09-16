@@ -6,6 +6,7 @@ set(HEADER_FILES
         FaceCard.h
         NumberCard.h
         CardManager.h
+        Spot.h
 )
 
 set(SOURCE_FILES
@@ -13,6 +14,7 @@ set(SOURCE_FILES
         FaceCard.cpp
         NumberCard.cpp
         CardManager.cpp
+        Spot.cpp
 )
 
 add_library(Cards_lib STATIC ${SOURCE_FILES} ${HEADER_FILES})

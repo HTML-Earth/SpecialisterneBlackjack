@@ -35,3 +35,7 @@ vector<Card*> CardManager::createDeck() {
     }
     return cards;
 }
+
+void CardManager::drawCard(Spot from, Spot to) {
+    to.addCard(from.removeTopCard());
+}

@@ -7,11 +7,13 @@
 #include <vector>
 
 #include "Card.h"
+#include "Spot.h"
 
 
 class CardManager {
 public:
     static std::vector<Card*> createDeck();
+    static void drawCard(Spot from, Spot to);
 };
 
 

@@ -32,13 +32,14 @@ private:
     void performHouseTurn();
     void checkWinner();
     void endGame(EndCondition condition);
+    static std::string printCardsInSpot(Spot& spot, bool hideFirstCard);
 public:
     BlackjackGame();
 
+    GameState getCurrentState();
     void startGame();
     void hit();
     void stay();
-    static std::string printCardsInSpot(Spot& spot, bool hideFirstCard);
     std::string printGameStatus();
 };
 

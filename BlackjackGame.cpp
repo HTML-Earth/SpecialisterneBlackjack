@@ -8,24 +8,20 @@
 
 using namespace std;
 
-BlackjackGame::BlackjackGame() {
-    m_currentState = inactive;
-    m_currentRound = 0;
-    m_playerStayed = false;
-    m_houseStayed = false;
-    m_endCondition = none;
-    m_deck = Spot {};
-    m_playerHand = Spot {};
-    m_houseHand = Spot {};
-}
-
 void BlackjackGame::performHouseTurn() {
+    if (m_currentState != playing)
+        return;
+
     //TODO: choose between hit and stay
     CardManager::drawCard(m_deck,m_houseHand);
     checkWinner();
+    m_currentRound++;
 }
 
 void BlackjackGame::checkWinner() {
+    if (m_currentState != playing)
+        return;
+
     int playerScore = m_playerHand.getCombinedValue();
     int houseScore = m_houseHand.getCombinedValue();
 
@@ -58,8 +54,45 @@ void BlackjackGame::checkWinner() {
 }
 
 void BlackjackGame::endGame(EndCondition condition) {
+    if (m_currentState != playing)
+        return;
+
     m_currentState = ended;
     m_endCondition = condition;
+}
+
+string BlackjackGame::printCardsInSpot(Spot& spot, bool hideFirstCard) {
+    string output;
+    bool firstCard = true;
+    for (auto card: spot.getCards()) {
+        if (firstCard) {
+            firstCard = false;
+            output += "\t\t";
+            if (hideFirstCard) {
+                output += "??? of ???";
+                continue;
+            }
+        }
+        else
+            output += ", ";
+        output += card->getCardName();
+    }
+    return output;
+}
+
+BlackjackGame::BlackjackGame() {
+    m_currentState = inactive;
+    m_currentRound = 0;
+    m_playerStayed = false;
+    m_houseStayed = false;
+    m_endCondition = none;
+    m_deck = Spot {};
+    m_playerHand = Spot {};
+    m_houseHand = Spot {};
+}
+
+BlackjackGame::GameState BlackjackGame::getCurrentState() {
+    return m_currentState;
 }
 
 void BlackjackGame::startGame() {
@@ -88,34 +121,21 @@ void BlackjackGame::startGame() {
 }
 
 void BlackjackGame::hit() {
+    if (m_currentState != playing)
+        return;
+
     CardManager::drawCard(m_deck,m_playerHand);
     performHouseTurn();
     checkWinner();
 }
 
 void BlackjackGame::stay() {
+    if (m_currentState != playing)
+        return;
+
     m_playerStayed = true;
     performHouseTurn();
     checkWinner();
-}
-
-string BlackjackGame::printCardsInSpot(Spot& spot, bool hideFirstCard) {
-    string output;
-    bool firstCard = true;
-    for (auto card: spot.getCards()) {
-        if (firstCard) {
-            firstCard = false;
-            output += "\t\t";
-            if (hideFirstCard) {
-                output += "??? of ???";
-                continue;
-            }
-        }
-        else
-            output += ", ";
-        output += card->getCardName();
-    }
-    return output;
 }
 
 string BlackjackGame::printGameStatus() {

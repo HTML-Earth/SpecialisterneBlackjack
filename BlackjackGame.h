@@ -22,6 +22,7 @@ public:
     };
 private:
     GameState m_currentState;
+    int m_currentRound;
     bool m_playerStayed;
     bool m_houseStayed;
     EndCondition m_endCondition;
@@ -37,7 +38,8 @@ public:
     void startGame();
     void hit();
     void stay();
-    std::string gameStatus();
+    static std::string printCardsInSpot(Spot& spot, bool hideFirstCard);
+    std::string printGameStatus();
 };
 
 

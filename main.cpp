@@ -7,7 +7,7 @@ int main() {
 
     game->startGame();
 
-    std::cout << game->gameStatus() << std::endl;
+    std::cout << game->printGameStatus() << std::endl;
 
     return 0;
 }

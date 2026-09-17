@@ -10,6 +10,7 @@ using namespace std;
 
 BlackjackGame::BlackjackGame() {
     m_currentState = inactive;
+    m_currentRound = 0;
     m_playerStayed = false;
     m_houseStayed = false;
     m_endCondition = none;
@@ -64,6 +65,7 @@ void BlackjackGame::endGame(EndCondition condition) {
 void BlackjackGame::startGame() {
     // Reset
     m_currentState = playing;
+    m_currentRound = 1;
     m_playerStayed = false;
     m_houseStayed = false;
     m_endCondition = none;
@@ -97,19 +99,44 @@ void BlackjackGame::stay() {
     checkWinner();
 }
 
-string BlackjackGame::gameStatus() {
+string BlackjackGame::printCardsInSpot(Spot& spot, bool hideFirstCard) {
+    string output;
+    bool firstCard = true;
+    for (auto card: spot.getCards()) {
+        if (firstCard) {
+            firstCard = false;
+            output += "\t\t";
+            if (hideFirstCard) {
+                output += "??? of ???";
+                continue;
+            }
+        }
+        else
+            output += ", ";
+        output += card->getCardName();
+    }
+    return output;
+}
+
+string BlackjackGame::printGameStatus() {
     string output;
     switch (m_currentState) {
         case inactive:
             output = "Game has not started yet.";
             break;
         case playing:
-            output += "Your cards:\n";
-            for (auto card: m_playerHand.getCards()) {
-                output += card->getCardName();
-                output += "\n";
-            }
-            output += "Type hit or stay to continue...";
+            output += "ROUND ";
+            output += to_string(m_currentRound);
+            output += ":\n";
+
+            output += "\tYOU:\n";
+            output += printCardsInSpot(m_playerHand, false);
+            output += '\n';
+            output += "\tHOUSE:\n";
+            output += printCardsInSpot(m_houseHand, true);
+            output += "\n\n";
+
+            output += "Type 'hit' or 'stay' to continue...";
             break;
         case ended:
             switch (m_endCondition) {

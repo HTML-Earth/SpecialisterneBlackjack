@@ -8,12 +8,29 @@
 
 
 class BlackjackGame {
+public:
+    enum GameState {
+        inactive,
+        playing,
+        ended
+    };
+    enum EndCondition {
+        none = NULL,
+        playerWon,
+        houseWon,
+        tied
+    };
 private:
+    GameState m_currentState;
+    bool m_playerStayed;
+    bool m_houseStayed;
+    EndCondition m_endCondition;
     Spot m_deck;
     Spot m_playerHand;
     Spot m_houseHand;
     void performHouseTurn();
     void checkWinner();
+    void endGame(EndCondition condition);
 public:
     BlackjackGame();
 

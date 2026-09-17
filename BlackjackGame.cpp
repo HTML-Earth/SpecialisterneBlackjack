@@ -7,6 +7,10 @@
 #include "CardManager.h"
 
 BlackjackGame::BlackjackGame() {
+    m_currentState = inactive;
+    m_playerStayed = false;
+    m_houseStayed = false;
+    m_endCondition = none;
     m_deck = Spot {};
     m_playerHand = Spot {};
     m_houseHand = Spot {};
@@ -15,20 +19,52 @@ BlackjackGame::BlackjackGame() {
 void BlackjackGame::performHouseTurn() {
     //TODO: choose between hit and stay
     CardManager::drawCard(m_deck,m_houseHand);
+    checkWinner();
 }
 
 void BlackjackGame::checkWinner() {
     int playerScore = m_playerHand.getCombinedValue();
     int houseScore = m_houseHand.getCombinedValue();
 
-    //TODO: proper victory/defeat
-    if (playerScore == 21) {
-        //victory
+    if (playerScore > 21) {
+        endGame(houseWon);
     }
+    if (houseScore > 21) {
+        endGame(playerWon);
+    }
+
+    bool finalCheck = m_playerStayed && m_houseStayed;
+    if (not finalCheck) {
+        // Don't declare winner yet
+        return;
+    }
+
+    int playerDelta = 21 - playerScore;
+    int houseDelta = 21 - houseScore;
+    if (playerDelta == houseDelta) {
+        endGame(tied);
+    }
+    else {
+        if (playerDelta < houseDelta) {
+            endGame(playerWon);
+        }
+        else {
+            endGame(houseWon);
+        }
+    }
+}
+
+void BlackjackGame::endGame(EndCondition condition) {
+    m_currentState = ended;
+    m_endCondition = condition;
 }
 
 void BlackjackGame::startGame() {
     // Reset
+    m_currentState = playing;
+    m_playerStayed = false;
+    m_houseStayed = false;
+    m_endCondition = none;
     m_deck.clear();
     m_playerHand.clear();
     m_houseHand.clear();
@@ -53,6 +89,7 @@ void BlackjackGame::hit() {
 }
 
 void BlackjackGame::stay() {
+    m_playerStayed = true;
     performHouseTurn();
     checkWinner();
 }

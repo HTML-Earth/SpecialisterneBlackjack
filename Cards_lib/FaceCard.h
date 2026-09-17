@@ -11,8 +11,7 @@
 
 class FaceCard : public Card {
 public:
-    enum Character
-    {
+    enum Character {
         jack,
         queen,
         king

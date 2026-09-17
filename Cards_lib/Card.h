@@ -9,8 +9,7 @@
 
 class Card {
 public:
-    enum Suit
-    {
+    enum Suit {
         hearts,
         diamonds,
         spades,

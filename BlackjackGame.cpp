@@ -6,6 +6,8 @@
 
 #include "CardManager.h"
 
+using namespace std;
+
 BlackjackGame::BlackjackGame() {
     m_currentState = inactive;
     m_playerStayed = false;
@@ -95,7 +97,37 @@ void BlackjackGame::stay() {
     checkWinner();
 }
 
-std::string BlackjackGame::gameStatus() {
-    //TODO: show player and house cards, victory/defeat, hit/stay options etc.
-    return "Your cards: _";
+string BlackjackGame::gameStatus() {
+    string output;
+    switch (m_currentState) {
+        case inactive:
+            output = "Game has not started yet.";
+            break;
+        case playing:
+            output += "Your cards:\n";
+            for (auto card: m_playerHand.getCards()) {
+                output += card->getCardName();
+                output += "\n";
+            }
+            output += "Type hit or stay to continue...";
+            break;
+        case ended:
+            switch (m_endCondition) {
+                case none:
+                    throw "Game ended without end condition";
+                case playerWon:
+                    output = "You won!";
+                    break;
+                case houseWon:
+                    output = "The house won.";
+                    break;
+                case tied:
+                    output = "You tied with the house.";
+                    break;
+            }
+            break;
+        default:
+            throw "Invalid game state";
+    }
+    return output;
 }

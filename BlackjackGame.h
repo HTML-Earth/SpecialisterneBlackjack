@@ -40,6 +40,7 @@ public:
     void startGame();
     void hit();
     void stay();
+    std::string printCurrentHands();
     std::string printGameStatus();
 };
 

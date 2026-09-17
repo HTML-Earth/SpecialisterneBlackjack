@@ -2,16 +2,19 @@
 
 #include "BlackjackGame.h"
 
+using namespace std;
+
 int main() {
     auto game = new BlackjackGame {};
 
     game->startGame();
 
-    std::cout << game->printGameStatus() << std::endl;
+    cout << game->printGameStatus() << endl;
 
     while (game->getCurrentState() == BlackjackGame::playing) {
-        std::string input = "";
-        std::cin >> input;
+        string input;
+
+        cin >> input;
         if (input == "hit") {
             game->hit();
         }
@@ -19,7 +22,7 @@ int main() {
             game->stay();
         }
 
-        std::cout << game->printGameStatus() << std::endl;
+        cout << game->printGameStatus() << endl;
     }
 
     return 0;

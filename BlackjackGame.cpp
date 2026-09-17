@@ -67,7 +67,6 @@ string BlackjackGame::printCardsInSpot(Spot& spot, bool hideFirstCard) {
     for (auto card: spot.getCards()) {
         if (firstCard) {
             firstCard = false;
-            output += "\t\t";
             if (hideFirstCard) {
                 output += "??? of ???";
                 continue;
@@ -125,6 +124,7 @@ void BlackjackGame::hit() {
         return;
 
     CardManager::drawCard(m_deck,m_playerHand);
+    checkWinner();
     performHouseTurn();
     checkWinner();
 }
@@ -138,6 +138,34 @@ void BlackjackGame::stay() {
     checkWinner();
 }
 
+std::string BlackjackGame::printCurrentHands() {
+    string output;
+
+    output += "\tYOU:\n";
+    output += '\t';
+    output += '(';
+    output += to_string(m_playerHand.getCombinedValue());
+    output += ") ";
+    output += '\t';
+    output += printCardsInSpot(m_playerHand, false);
+    output += '\n';
+
+    output += "\tHOUSE:\n";
+    output += '\t';
+    if (m_currentState == ended) {
+        output += '(';
+        output += to_string(m_houseHand.getCombinedValue());
+        output += ") ";
+    }
+    else {
+        output += "(???) ";
+    }
+    output += '\t';
+    output += printCardsInSpot(m_houseHand, m_currentState == playing);
+
+    return output;
+}
+
 string BlackjackGame::printGameStatus() {
     string output;
     switch (m_currentState) {
@@ -149,11 +177,7 @@ string BlackjackGame::printGameStatus() {
             output += to_string(m_currentRound);
             output += ":\n";
 
-            output += "\tYOU:\n";
-            output += printCardsInSpot(m_playerHand, false);
-            output += '\n';
-            output += "\tHOUSE:\n";
-            output += printCardsInSpot(m_houseHand, true);
+            output += printCurrentHands();
             output += "\n\n";
 
             output += "Type 'hit' or 'stay' to continue...";
@@ -163,13 +187,16 @@ string BlackjackGame::printGameStatus() {
                 case none:
                     throw "Game ended without end condition";
                 case playerWon:
-                    output = "You won!";
+                    output = "== YOU WON! ==\n";
+                    output += printCurrentHands();
                     break;
                 case houseWon:
-                    output = "The house won.";
+                    output = "== The house won. ==\n";
+                    output += printCurrentHands();
                     break;
                 case tied:
-                    output = "You tied with the house.";
+                    output = "== You tied with the house. ==\n";
+                    output += printCurrentHands();
                     break;
             }
             break;

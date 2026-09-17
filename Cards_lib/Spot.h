@@ -16,9 +16,11 @@ public:
     Spot();
 
     std::vector<Card*> getCards();
+    int getCombinedValue();
     void addCard(Card &card);
     void shuffleCards();
     Card& removeTopCard();
+    void clear();
 };
 
 

@@ -14,7 +14,7 @@ class NumberCard : public Card {
 public:
     NumberCard(Suit suit, int number);
 
-    int getValue(std::vector<Card*> otherCards) override;
+    int getValue(int existingValue) override;
     std::string getCardName() override;
 };
 

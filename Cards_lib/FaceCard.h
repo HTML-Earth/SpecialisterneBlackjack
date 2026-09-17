@@ -34,7 +34,7 @@ private:
 public:
     FaceCard(Suit suit, Character character);
 
-    int getValue(std::vector<Card*> otherCards) override;
+    int getValue(int existingValue) override;
     std::string getCardName() override;
 };
 

@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(SOURCE_FILES
         main.cpp
+        BlackjackGame.cpp
+        BlackjackGame.h
 )
 add_executable(Blackjack_run ${SOURCE_FILES})
 

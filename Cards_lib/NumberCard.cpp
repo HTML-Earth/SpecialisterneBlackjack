@@ -16,7 +16,7 @@ NumberCard::NumberCard(Suit suit, int number) {
     m_number = number;
 }
 
-int NumberCard::getValue(vector<Card*>) {
+int NumberCard::getValue(int) {
     return m_number;
 }
 

@@ -10,7 +10,7 @@ FaceCard::FaceCard(Suit suit, Character character) {
     m_character = character;
 }
 
-int FaceCard::getValue(vector<Card*>) {
+int FaceCard::getValue(int) {
     return 10;
 }
 

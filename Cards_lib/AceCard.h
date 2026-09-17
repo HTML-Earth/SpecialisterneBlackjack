@@ -13,7 +13,7 @@ class AceCard : public Card {
 public:
     AceCard(Suit suit);
 
-    int getValue(std::vector<Card*> otherCards) override;
+    int getValue(int existingValue) override;
     std::string getCardName() override;
 };
 

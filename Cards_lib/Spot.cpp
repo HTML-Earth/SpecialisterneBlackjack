@@ -20,6 +20,14 @@ vector<Card *> Spot::getCards() {
     return m_cards;
 }
 
+int Spot::getCombinedValue() {
+    int sum = 0;
+    for (auto card: m_cards) {
+        sum += card->getValue(sum);
+    }
+    return sum;
+}
+
 void Spot::addCard(Card &card) {
     m_cards.emplace_back(&card);
 }
@@ -32,4 +40,8 @@ Card & Spot::removeTopCard() {
     auto card = m_cards.back();
     m_cards.pop_back();
     return *card;
+}
+
+void Spot::clear() {
+    m_cards.clear();
 }

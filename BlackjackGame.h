@@ -12,6 +12,7 @@ public:
     enum GameState {
         inactive,
         playing,
+        waitingForComputer,
         ended
     };
     enum EndCondition {

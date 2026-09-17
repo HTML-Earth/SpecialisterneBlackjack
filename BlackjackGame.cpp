@@ -9,7 +9,7 @@
 using namespace std;
 
 void BlackjackGame::performHouseTurn() {
-    if (m_currentState != playing)
+    if (m_currentState != playing && m_currentState != waitingForComputer)
         return;
 
     //TODO: choose between hit and stay
@@ -19,7 +19,7 @@ void BlackjackGame::performHouseTurn() {
 }
 
 void BlackjackGame::checkWinner() {
-    if (m_currentState != playing)
+    if (m_currentState != playing && m_currentState != waitingForComputer)
         return;
 
     int playerScore = m_playerHand.getCombinedValue();
@@ -54,7 +54,7 @@ void BlackjackGame::checkWinner() {
 }
 
 void BlackjackGame::endGame(EndCondition condition) {
-    if (m_currentState != playing)
+    if (m_currentState != playing && m_currentState != waitingForComputer)
         return;
 
     m_currentState = ended;
@@ -126,7 +126,6 @@ void BlackjackGame::hit() {
     CardManager::drawCard(m_deck,m_playerHand);
     checkWinner();
     performHouseTurn();
-    checkWinner();
 }
 
 void BlackjackGame::stay() {
@@ -134,8 +133,8 @@ void BlackjackGame::stay() {
         return;
 
     m_playerStayed = true;
+    m_currentState = waitingForComputer;
     performHouseTurn();
-    checkWinner();
 }
 
 std::string BlackjackGame::printCurrentHands() {
@@ -181,6 +180,10 @@ string BlackjackGame::printGameStatus() {
             output += "\n\n";
 
             output += "Type 'hit' or 'stay' to continue...";
+            break;
+        case waitingForComputer:
+            performHouseTurn();
+            output = printGameStatus();
             break;
         case ended:
             switch (m_endCondition) {

@@ -69,11 +69,12 @@ void BlackjackGame::startGame() {
     m_playerHand.clear();
     m_houseHand.clear();
 
-    // Create new deck of cards
+    // Create new deck of cards and shuffle it
     auto deck = CardManager::createDeck();
     for (auto card: deck) {
         m_deck.addCard(*card);
     }
+    m_deck.shuffleCards();
 
     // Draw 2 cards for each player
     for (int i = 0; i < 2; i++) {

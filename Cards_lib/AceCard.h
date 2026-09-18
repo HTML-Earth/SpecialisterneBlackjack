@@ -13,7 +13,7 @@ public:
     AceCard(Suit suit);
 
     int getValue(int existingValue) override;
-    std::string getCardName() override;
+    std::string getCardName(bool useShortVersion) override;
 };
 
 

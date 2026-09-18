@@ -18,7 +18,13 @@ int AceCard::getValue(int existingValue) {
         return 11;
 }
 
-string AceCard::getCardName() {
-    string suitName = Card::getSuitName(m_suit);
-    return "Ace of " + suitName;
+string AceCard::getCardName(bool useShortVersion) {
+    if (useShortVersion) {
+        string suitIcon = Card::getSuitIcon(m_suit);
+        return "A" + suitIcon;
+    }
+    else {
+        string suitName = Card::getSuitName(m_suit);
+        return "Ace of " + suitName;
+    }
 }

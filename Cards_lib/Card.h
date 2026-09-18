@@ -29,11 +29,25 @@ public:
                 return "Errors";
         }
     }
+    static std::string getSuitIcon(Suit suit) {
+        switch (suit) {
+            case hearts:
+                return "♥";
+            case diamonds:
+                return "♦";
+            case spades:
+                return "♠";
+            case clubs:
+                return "♣";
+            default:
+                return "!";
+        }
+    }
 protected:
     Suit m_suit;
 public:
     virtual int getValue(int existingValue) = 0;
-    virtual std::string getCardName() = 0;
+    virtual std::string getCardName(bool useShortVersion) = 0;
 };
 
 

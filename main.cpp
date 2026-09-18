@@ -28,6 +28,9 @@ int main() {
             applicationIsActive = false;
             cout << "Quitting application..." << endl;
         }
+        else if (input == "short") {
+            cout << game->toggleShort() << endl;
+        }
         else {
             cout << "Invalid input." << endl;
         }

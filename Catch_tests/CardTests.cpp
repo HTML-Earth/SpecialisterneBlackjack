@@ -75,7 +75,7 @@ TEST_CASE( "All cards exist in deck", "[cards]" ) {
     for (auto& cardName: allCardNames) {
         bool existsInDeck = false;
         for (auto card: fullDeck) {
-            auto name = card->getCardName();
+            auto name = card->getCardName(false);
             if (name == cardName) {
                 existsInDeck = true;
                 break;
@@ -96,7 +96,7 @@ TEST_CASE( "The value of cards 2 to 10 are the same as their number", "[cards]" 
         auto suit = static_cast<Card::Suit>(s);
         for (int i = 2; i <= 10; i++) {
             auto card = new NumberCard(suit, i);
-            INFO(card->getCardName());
+            INFO(card->getCardName(false));
             REQUIRE(card->getValue(0) == i);
         }
     }
@@ -128,15 +128,15 @@ TEST_CASE( "The value of a jack, queen or king is 10", "[cards]" ) {
         auto suit = static_cast<Card::Suit>(s);
 
         auto jack = new FaceCard(suit, FaceCard::jack);
-        INFO(jack->getCardName());
+        INFO(jack->getCardName(false));
         REQUIRE(jack->getValue(0) == 10);
 
         auto queen = new FaceCard(suit, FaceCard::queen);
-        INFO(queen->getCardName());
+        INFO(queen->getCardName(false));
         REQUIRE(queen->getValue(0) == 10);
 
         auto king = new FaceCard(suit, FaceCard::king);
-        INFO(king->getCardName());
+        INFO(king->getCardName(false));
         REQUIRE(king->getValue(0) == 10);
     }
 }

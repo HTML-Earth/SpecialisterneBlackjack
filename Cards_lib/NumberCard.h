@@ -14,7 +14,7 @@ public:
     NumberCard(Suit suit, int number);
 
     int getValue(int existingValue) override;
-    std::string getCardName() override;
+    std::string getCardName(bool useShortVersion) override;
 };
 
 

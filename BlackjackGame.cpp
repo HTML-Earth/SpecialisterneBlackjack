@@ -73,13 +73,16 @@ string BlackjackGame::printCardsInSpot(Spot& spot, bool hideFirstCard) {
         if (firstCard) {
             firstCard = false;
             if (hideFirstCard) {
-                output += "??? of ???";
+                if (m_shortOutputIsEnabled)
+                    output += "??";
+                else
+                    output += "??? of ???";
                 continue;
             }
         }
         else
             output += ", ";
-        output += card->getCardName();
+        output += card->getCardName(m_shortOutputIsEnabled);
     }
     return output;
 }
@@ -214,4 +217,13 @@ std::string BlackjackGame::stand() {
     performHouseTurn();
 
     return printGameStatus();
+}
+
+std::string BlackjackGame::toggleShort() {
+    m_shortOutputIsEnabled = !m_shortOutputIsEnabled;
+
+    if (m_shortOutputIsEnabled)
+        return "Short output enabled.";
+    else
+        return "Short output disabled.";
 }

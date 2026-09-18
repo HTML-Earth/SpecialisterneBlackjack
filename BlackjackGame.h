@@ -16,7 +16,7 @@ public:
         ended
     };
     enum EndCondition {
-        none = NULL,
+        none = 0,
         playerWon,
         houseWon,
         tied
@@ -30,11 +30,13 @@ protected:
     Spot m_deck;
     Spot m_playerHand;
     Spot m_houseHand;
+
+    bool m_shortOutputIsEnabled;
 private:
     void performHouseTurn();
     void checkWinner();
     void endGame(EndCondition condition);
-    static std::string printCardsInSpot(Spot& spot, bool hideFirstCard);
+    std::string printCardsInSpot(Spot& spot, bool hideFirstCard);
     std::string printCurrentHands();
     std::string printGameStatus();
 public:
@@ -43,6 +45,8 @@ public:
     std::string startGame();
     std::string hit();
     std::string stand();
+
+    std::string toggleShort();
 };
 
 

@@ -20,8 +20,14 @@ int NumberCard::getValue(int) {
     return m_number;
 }
 
-string NumberCard::getCardName() {
+string NumberCard::getCardName(bool useShortVersion) {
     string number = to_string(m_number);
-    string suitName = Card::getSuitName(m_suit);
-    return number + " of " + suitName;
+    if (useShortVersion) {
+        string suitIcon = Card::getSuitIcon(m_suit);
+        return number + suitIcon;
+    }
+    else {
+        string suitName = Card::getSuitName(m_suit);
+        return number + " of " + suitName;
+    }
 }

@@ -27,13 +27,25 @@ public:
                 return "Errors";
         }
     }
+    static std::string getCharacterLetter(Character character) {
+        switch (character) {
+            case jack:
+                return "J";
+            case queen:
+                return "Q";
+            case king:
+                return "K";
+            default:
+                return "E";
+        }
+    }
 private:
     Character m_character;
 public:
     FaceCard(Suit suit, Character character);
 
     int getValue(int existingValue) override;
-    std::string getCardName() override;
+    std::string getCardName(bool useShortVersion) override;
 };
 
 

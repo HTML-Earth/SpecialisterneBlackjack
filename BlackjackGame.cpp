@@ -13,8 +13,14 @@ void BlackjackGame::performHouseTurn() {
         return;
 
     //TODO: choose between hit and stay
-    CardManager::drawCard(m_deck,m_houseHand);
-    checkWinner();
+    if (m_houseHand.getCombinedValue() < 17) {
+        CardManager::drawCard(m_deck,m_houseHand);
+        checkWinner();
+    }
+    else {
+        m_houseStayed = true;
+        checkWinner();
+    }
     m_currentRound++;
 }
 

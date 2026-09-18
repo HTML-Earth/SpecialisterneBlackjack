@@ -12,7 +12,6 @@ void BlackjackGame::performHouseTurn() {
     if (m_currentState != playing && m_currentState != waitingForComputer)
         return;
 
-    //TODO: choose between hit and stay
     if (m_houseHand.getCombinedValue() < 17) {
         CardManager::drawCard(m_deck,m_houseHand);
         checkWinner();

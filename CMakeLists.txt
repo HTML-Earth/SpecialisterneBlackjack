@@ -3,10 +3,18 @@ project(SpecialisterneBlackjack)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# Statically link or include "standard" libraries
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++ -static-libgcc")
-file(COPY_FILE $ENV{PTHREAD_PATH}
-        ${CMAKE_CURRENT_BINARY_DIR}/$ENV{PTHREAD_NAME})
+# Include "standard" libraries
+file(COPY_FILE $ENV{MINGW64_BINARIES_PATH}/$ENV{LIB_GCC_NAME}
+        ${CMAKE_CURRENT_BINARY_DIR}/$ENV{LIB_GCC_NAME})
+
+file(COPY_FILE $ENV{MINGW64_BINARIES_PATH}/$ENV{LIB_STD_NAME}
+        ${CMAKE_CURRENT_BINARY_DIR}/$ENV{LIB_STD_NAME})
+
+file(COPY_FILE $ENV{MINGW64_BINARIES_PATH}/$ENV{LIB_PTHREAD_NAME}
+        ${CMAKE_CURRENT_BINARY_DIR}/$ENV{LIB_PTHREAD_NAME})
+
+# fmt library
+find_package(fmt CONFIG REQUIRED)
 
 set(SOURCE_FILES
         main.cpp
@@ -18,6 +26,7 @@ add_executable(Blackjack_run ${SOURCE_FILES})
 include_directories(Cards_lib)
 add_subdirectory(Cards_lib)
 
-target_link_libraries(Blackjack_run Cards_lib)
+target_link_libraries(Blackjack_run PRIVATE Cards_lib)
+target_link_libraries(Blackjack_run PRIVATE fmt::fmt)
 
 add_subdirectory(Catch_tests)

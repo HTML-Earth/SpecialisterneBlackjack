@@ -5,18 +5,20 @@
       <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" GENERATION_OPTIONS="-DCMAKE_TOOLCHAIN_FILE=C:\Users\Stefan\.vcpkg-clion\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-mingw-dynamic">
         <ADDITIONAL_GENERATION_ENVIRONMENT>
           <envs>
-            <env name="PTHREAD_PATH" value="C:\Program Files\Git\mingw64\bin\libwinpthread-1.dll" />
-            <env name="VCPKG_INCLUDE_PATH" value="$USER_HOME$/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/include" />
-            <env name="PTHREAD_NAME" value="libwinpthread-1.dll" />
+            <env name="LIB_GCC_NAME" value="libgcc_s_seh-1.dll" />
+            <env name="LIB_PTHREAD_NAME" value="libwinpthread-1.dll" />
+            <env name="LIB_STD_NAME" value="libstdc++-6.dll" />
+            <env name="MINGW64_BINARIES_PATH" value="$PROJECT_DIR$/../../../../Program Files/Git/mingw64/bin/" />
           </envs>
         </ADDITIONAL_GENERATION_ENVIRONMENT>
       </configuration>
       <configuration PROFILE_NAME="Release" ENABLED="true" CONFIG_NAME="Release" GENERATION_OPTIONS="-DCMAKE_TOOLCHAIN_FILE=C:\Users\Stefan\.vcpkg-clion\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-mingw-dynamic">
         <ADDITIONAL_GENERATION_ENVIRONMENT>
           <envs>
-            <env name="PTHREAD_PATH" value="C:\Program Files\Git\mingw64\bin\libwinpthread-1.dll" />
-            <env name="VCPKG_INCLUDE_PATH" value="$USER_HOME$/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/include" />
-            <env name="PTHREAD_NAME" value="libwinpthread-1.dll" />
+            <env name="LIB_GCC_NAME" value="libgcc_s_seh-1.dll" />
+            <env name="LIB_PTHREAD_NAME" value="libwinpthread-1.dll" />
+            <env name="LIB_STD_NAME" value="libstdc++-6.dll" />
+            <env name="MINGW64_BINARIES_PATH" value="$PROJECT_DIR$/../../../../Program Files/Git/mingw64/bin/" />
           </envs>
         </ADDITIONAL_GENERATION_ENVIRONMENT>
       </configuration>

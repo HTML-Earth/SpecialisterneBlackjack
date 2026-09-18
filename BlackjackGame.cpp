@@ -74,7 +74,7 @@ string BlackjackGame::printCardsInSpot(Spot& spot, bool hideFirstCard) {
             firstCard = false;
             if (hideFirstCard) {
                 if (m_shortOutputIsEnabled)
-                    output += "??";
+                    output += "#?";
                 else
                     output += "??? of ???";
                 continue;

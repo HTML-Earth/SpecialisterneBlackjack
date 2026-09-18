@@ -138,17 +138,17 @@ string BlackjackGame::printGameStatus() {
                     throw "Game ended without end condition";
                 case playerWon:
                     output = "== YOU WON! ==\n";
-                    output += printCurrentHands();
                     break;
                 case houseWon:
                     output = "== The house won. ==\n";
-                    output += printCurrentHands();
                     break;
                 case tied:
                     output = "== You tied with the house. ==\n";
-                    output += printCurrentHands();
                     break;
             }
+            output += printCurrentHands();
+            output += "\n\n";
+            output += "Type 'start' to play again or 'quit' to stop the application...";
             break;
         default:
             throw "Invalid game state";

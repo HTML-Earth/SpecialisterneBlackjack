@@ -15,7 +15,7 @@
 
 using namespace std;
 
-vector<string> allCardNames {
+static vector<string> allCardNames {
     "Ace of Hearts",
     "2 of Hearts",
     "3 of Hearts",
@@ -72,7 +72,7 @@ vector<string> allCardNames {
 
 TEST_CASE( "All cards exist in deck", "[cards]" ) {
     auto fullDeck = CardManager::createDeck();
-    for (auto cardName: allCardNames) {
+    for (auto& cardName: allCardNames) {
         bool existsInDeck = false;
         for (auto card: fullDeck) {
             auto name = card->getCardName();
@@ -93,7 +93,7 @@ TEST_CASE( "Card amount is correct", "[cards]" ) {
 
 TEST_CASE( "The value of cards 2 to 10 are the same as their number", "[cards]" ) {
     for (int s = 0; s < 4; s++) {
-        auto suit = Card::Suit(s);
+        auto suit = static_cast<Card::Suit>(s);
         for (int i = 2; i <= 10; i++) {
             auto card = new NumberCard(suit, i);
             INFO(card->getCardName());
@@ -104,7 +104,7 @@ TEST_CASE( "The value of cards 2 to 10 are the same as their number", "[cards]" 
 
 TEST_CASE( "The value of an ace depends on the potential sum of the deck", "[cards]" ) {
     for (int s = 0; s < 4; s++) {
-        auto suit = Card::Suit(s);
+        auto suit = static_cast<Card::Suit>(s);
 
         auto ace = new AceCard(suit);
 
@@ -125,7 +125,7 @@ TEST_CASE( "The value of an ace depends on the potential sum of the deck", "[car
 
 TEST_CASE( "The value of a jack, queen or king is 10", "[cards]" ) {
     for (int s = 0; s < 4; s++) {
-        auto suit = Card::Suit(s);
+        auto suit = static_cast<Card::Suit>(s);
 
         auto jack = new FaceCard(suit, FaceCard::jack);
         INFO(jack->getCardName());
@@ -143,7 +143,7 @@ TEST_CASE( "The value of a jack, queen or king is 10", "[cards]" ) {
 
 TEST_CASE( "Number cards cannot be less than 2 or greater than 10", "[cards]" ) {
     for (int s = 0; s < 4; s++) {
-        auto suit = Card::Suit(s);
+        auto suit = static_cast<Card::Suit>(s);
         for (int i = -100; i <= 1; i++) {
             INFO(to_string(i) + " of " + Card::getSuitName(suit));
             REQUIRE_THROWS(new NumberCard(suit, i));

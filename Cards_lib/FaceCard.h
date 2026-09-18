@@ -4,7 +4,6 @@
 
 #ifndef SPECIALISTERNEBLACKJACK_FACECARD_H
 #define SPECIALISTERNEBLACKJACK_FACECARD_H
-#include <vector>
 
 #include "Card.h"
 

@@ -16,7 +16,7 @@ using namespace std;
 vector<Card*> CardManager::createDeck() {
     vector<Card*> cards;
     for (int s = 0; s < 4; s++) {
-        auto suit = Card::Suit(s);
+        auto suit = static_cast<Card::Suit>(s);
 
         auto ace = new AceCard(suit);
         cards.emplace_back(ace);

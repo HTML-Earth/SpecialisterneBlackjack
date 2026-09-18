@@ -84,64 +84,6 @@ string BlackjackGame::printCardsInSpot(Spot& spot, bool hideFirstCard) {
     return output;
 }
 
-BlackjackGame::BlackjackGame() {
-    m_currentState = inactive;
-    m_currentRound = 0;
-    m_playerStayed = false;
-    m_houseStayed = false;
-    m_endCondition = none;
-    m_deck = Spot {};
-    m_playerHand = Spot {};
-    m_houseHand = Spot {};
-}
-
-BlackjackGame::GameState BlackjackGame::getCurrentState() {
-    return m_currentState;
-}
-
-void BlackjackGame::startGame() {
-    // Reset
-    m_currentState = playing;
-    m_currentRound = 1;
-    m_playerStayed = false;
-    m_houseStayed = false;
-    m_endCondition = none;
-    m_deck.clear();
-    m_playerHand.clear();
-    m_houseHand.clear();
-
-    // Create new deck of cards and shuffle it
-    auto deck = CardManager::createDeck();
-    for (auto card: deck) {
-        m_deck.addCard(*card);
-    }
-    m_deck.shuffleCards();
-
-    // Draw 2 cards for each player
-    for (int i = 0; i < 2; i++) {
-        CardManager::drawCard(m_deck,m_playerHand);
-        CardManager::drawCard(m_deck,m_houseHand);
-    }
-}
-
-void BlackjackGame::hit() {
-    if (m_currentState != playing)
-        return;
-
-    CardManager::drawCard(m_deck,m_playerHand);
-    checkWinner();
-    performHouseTurn();
-}
-
-void BlackjackGame::stay() {
-    if (m_currentState != playing)
-        return;
-
-    m_playerStayed = true;
-    m_currentState = waitingForComputer;
-    performHouseTurn();
-}
-
 std::string BlackjackGame::printCurrentHands() {
     string output;
 
@@ -184,7 +126,7 @@ string BlackjackGame::printGameStatus() {
             output += printCurrentHands();
             output += "\n\n";
 
-            output += "Type 'hit' or 'stay' to continue...";
+            output += "Type 'hit' or 'stand' to continue...";
             break;
         case waitingForComputer:
             performHouseTurn();
@@ -212,4 +154,68 @@ string BlackjackGame::printGameStatus() {
             throw "Invalid game state";
     }
     return output;
+}
+
+BlackjackGame::BlackjackGame() {
+    m_currentState = inactive;
+    m_currentRound = 0;
+    m_playerStayed = false;
+    m_houseStayed = false;
+    m_endCondition = none;
+    m_deck = Spot {};
+    m_playerHand = Spot {};
+    m_houseHand = Spot {};
+}
+
+BlackjackGame::GameState BlackjackGame::getCurrentState() {
+    return m_currentState;
+}
+
+std::string BlackjackGame::startGame() {
+    // Reset
+    m_currentState = playing;
+    m_currentRound = 1;
+    m_playerStayed = false;
+    m_houseStayed = false;
+    m_endCondition = none;
+    m_deck.clear();
+    m_playerHand.clear();
+    m_houseHand.clear();
+
+    // Create new deck of cards and shuffle it
+    auto deck = CardManager::createDeck();
+    for (auto card: deck) {
+        m_deck.addCard(*card);
+    }
+    m_deck.shuffleCards();
+
+    // Draw 2 cards for each player
+    for (int i = 0; i < 2; i++) {
+        CardManager::drawCard(m_deck,m_playerHand);
+        CardManager::drawCard(m_deck,m_houseHand);
+    }
+
+    return printGameStatus();
+}
+
+std::string BlackjackGame::hit() {
+    if (m_currentState != playing)
+        return "Game is not active. Type 'start' first.";
+
+    CardManager::drawCard(m_deck,m_playerHand);
+    checkWinner();
+    performHouseTurn();
+
+    return printGameStatus();
+}
+
+std::string BlackjackGame::stay() {
+    if (m_currentState != playing)
+        return "Game is not active. Type 'start' first.";
+
+    m_playerStayed = true;
+    m_currentState = waitingForComputer;
+    performHouseTurn();
+
+    return printGameStatus();
 }

@@ -5,23 +5,28 @@
 using namespace std;
 
 int main() {
+    bool applicationIsActive = true;
     auto game = new BlackjackGame {};
 
-    game->startGame();
+    cout << "== BLACKJACK ==" << endl;
+    cout << "Type 'start' to start the game..." << endl;
 
-    cout << game->printGameStatus() << endl;
-
-    while (game->getCurrentState() == BlackjackGame::playing) {
+    while (applicationIsActive) {
         string input;
 
         cin >> input;
-        if (input == "hit") {
-            game->hit();
-            cout << game->printGameStatus() << endl;
+        if (input == "start") {
+            cout << game->startGame() << endl;
         }
-        else if (input == "stay") {
-            game->stay();
-            cout << game->printGameStatus() << endl;
+        else if (input == "hit" || input == "draw") {
+            cout << game->hit() << endl;
+        }
+        else if (input == "stand" || input == "stay") {
+            cout << game->stay() << endl;
+        }
+        else if (input == "quit" || input == "exit") {
+            applicationIsActive = false;
+            cout << "Quitting application..." << endl;
         }
         else {
             cout << "Invalid input." << endl;

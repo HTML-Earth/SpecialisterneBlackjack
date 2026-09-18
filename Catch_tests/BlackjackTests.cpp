@@ -10,5 +10,4 @@
 TEST_CASE("Game starts without exceptions", "[blackjack]") {
     auto game = new BlackjackGame();
     REQUIRE_NOTHROW(game->startGame());
-    REQUIRE_NOTHROW(game->printGameStatus());
 }

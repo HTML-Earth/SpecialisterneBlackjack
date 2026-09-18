@@ -21,7 +21,7 @@ public:
         houseWon,
         tied
     };
-private:
+protected:
     GameState m_currentState;
     int m_currentRound;
     bool m_playerStayed;
@@ -30,6 +30,7 @@ private:
     Spot m_deck;
     Spot m_playerHand;
     Spot m_houseHand;
+private:
     void performHouseTurn();
     void checkWinner();
     void endGame(EndCondition condition);
@@ -39,10 +40,9 @@ private:
 public:
     BlackjackGame();
 
-    GameState getCurrentState();
     std::string startGame();
     std::string hit();
-    std::string stay();
+    std::string stand();
 };
 
 

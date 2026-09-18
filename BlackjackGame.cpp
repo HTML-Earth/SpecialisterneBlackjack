@@ -167,10 +167,6 @@ BlackjackGame::BlackjackGame() {
     m_houseHand = Spot {};
 }
 
-BlackjackGame::GameState BlackjackGame::getCurrentState() {
-    return m_currentState;
-}
-
 std::string BlackjackGame::startGame() {
     // Reset
     m_currentState = playing;
@@ -209,7 +205,7 @@ std::string BlackjackGame::hit() {
     return printGameStatus();
 }
 
-std::string BlackjackGame::stay() {
+std::string BlackjackGame::stand() {
     if (m_currentState != playing)
         return "Game is not active. Type 'start' first.";
 

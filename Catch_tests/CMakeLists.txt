@@ -5,6 +5,8 @@ add_executable(Catch_tests_run
         BlackjackTests.cpp
         ../BlackjackGame.cpp
         ../BlackjackGame.h
+        TestableBlackjackGame.cpp
+        TestableBlackjackGame.h
 )
 
 target_link_libraries(Catch_tests_run PRIVATE Cards_lib)

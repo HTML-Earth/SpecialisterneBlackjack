@@ -22,7 +22,7 @@ int main() {
             cout << game->hit() << endl;
         }
         else if (input == "stand" || input == "stay") {
-            cout << game->stay() << endl;
+            cout << game->stand() << endl;
         }
         else if (input == "quit" || input == "exit") {
             applicationIsActive = false;

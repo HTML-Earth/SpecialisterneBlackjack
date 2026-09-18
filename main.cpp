@@ -17,12 +17,15 @@ int main() {
         cin >> input;
         if (input == "hit") {
             game->hit();
+            cout << game->printGameStatus() << endl;
         }
-        if (input == "stay") {
+        else if (input == "stay") {
             game->stay();
+            cout << game->printGameStatus() << endl;
         }
-
-        cout << game->printGameStatus() << endl;
+        else {
+            cout << "Invalid input." << endl;
+        }
     }
 
     return 0;

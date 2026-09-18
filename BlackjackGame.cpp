@@ -168,6 +168,7 @@ BlackjackGame::BlackjackGame() {
     m_deck = Spot {};
     m_playerHand = Spot {};
     m_houseHand = Spot {};
+    m_shortOutputIsEnabled = false;
 }
 
 std::string BlackjackGame::startGame() {

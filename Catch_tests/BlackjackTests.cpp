@@ -4,7 +4,6 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "CardManager.h"
 #include "TestableBlackjackGame.h"
 #include "../BlackjackGame.h"
 

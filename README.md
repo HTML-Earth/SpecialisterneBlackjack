@@ -5,34 +5,57 @@ Simple C++ implementation of Blackjack
 ```mermaid
     classDiagram
     Application : main()
-    Application : loop()
-    Application -- InputHandler
-    InputHandler : handleInput()
-    InputHandler -- BlackjackGame
-    BlackjackGame : Spot deck
-    BlackjackGame : Spot playerHand
-    BlackjackGame : Spot houseHand
+    Application -- BlackjackGame
+    BlackjackGame : enum GameState
+    BlackjackGame : enum EndCondition
+    BlackjackGame : GameState m_currentState
+    BlackjackGame : int m_currentRound
+    BlackjackGame : bool m_playerStayed
+    BlackjackGame : bool m_houseStayed
+    BlackjackGame : EndCondition m_endCondition
+    BlackjackGame : bool m_shortOutputIsEnabled
+    BlackjackGame : Spot m_deck
+    BlackjackGame : Spot m_playerHand
+    BlackjackGame : Spot m_houseHand
     BlackjackGame : startGame()
     BlackjackGame : hit()
-    BlackjackGame : stay()
+    BlackjackGame : stand()
+    BlackjackGame : toggleShort()
     BlackjackGame -- CardManager
-    CardManager : Card[] createDeck()
-    CardManager : drawCard(Spot,Spot)
+    CardManager : static Card[] createDeck()
+    CardManager : static drawCard(Spot,Spot)
     BlackjackGame o-- Spot
-    Spot : Card[] cards
+    Spot : Card[] m_cards
     Spot : Card[] getCards()
+    Spot : int getCombinedValue()
     Spot : addCard(Card)
     Spot : shuffleCards()
     Spot : Card removeTopCard()
+    Spot : void clear()
     Spot o-- Card
-    Card : Suit { hearts, diamonds, spades, clubs }
+    Card : enum Suit
+    Card : Suit m_suit
     Card : int getValue(Card[])
     Card : string getCardName()
     Card <|-- NumberCard
     NumberCard : int number
     Card <|-- FaceCard
-    FaceCard : Character { jack, queen, king }
+    FaceCard : enum Character
+    FaceCard : Character m_character
+    FaceCard : static string getCharacterName(Character)
+    FaceCard : static string getCharacterLetter(Character)
     Card <|-- AceCard
+    CardTests -- CardManager
+    BlackjackTests -- TestableBlackjackGame
+    TestableBlackjackGame --|> BlackjackGame
+    TestableBlackjackGame : GameState getCurrentState()
+    TestableBlackjackGame : int getCurrentRound()
+    TestableBlackjackGame : bool getPlayerStayed()
+    TestableBlackjackGame : bool getHouseStayed()
+    TestableBlackjackGame : EndCondition getEndCondition()
+    TestableBlackjackGame : Spot getDeck()
+    TestableBlackjackGame : Spot getPlayerHand()
+    TestableBlackjackGame : Spot getHouseHand()
 %%    C1 *--o C2
 %%    C3 <--> C4 : label
 %%    C3 ..* C5
